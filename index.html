@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プロンプトからPPT風資料生成</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/notifications.css">
+  <link rel="stylesheet" href="css/optimizations.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- ヘッダー -->
+    <header class="app-header">
+      <div class="logo-container">
+        <i class="fas fa-presentation"></i>
+        <h1>プロンプトからPPT風資料生成</h1>
+      </div>
+      <div class="theme-toggle">
+        <button id="theme-toggle-btn" aria-label="テーマ切替">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="app-main">
+      <!-- 入力フォーム -->
+      <form id="presentation-form" class="presentation-form card">
+        <div class="form-header">
+          <h2>プレゼンテーション設定</h2>
+          <div class="model-tabs">
+            <button type="button" class="model-tab active" data-model="openai">
+              <i class="fas fa-robot"></i> OpenAI
+            </button>
+            <button type="button" class="model-tab" data-model="gemini">
+              <i class="fas fa-atom"></i> Gemini
+            </button>
+          </div>
+        </div>
+
+        <div class="form-body">
+          <div class="form-group">
+            <label for="prompt">プロンプト <span class="required">*</span></label>
+            <textarea id="prompt" name="prompt" rows="5" placeholder="例: AIの歴史と未来について10枚のスライドを作成" required></textarea>
+            <div id="prompt-error" class="error-message">プロンプトを入力してください</div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="slide-count">スライド枚数</label>
+              <select id="slide-count" name="slide-count">
+                <option value="5">5枚</option>
+                <option value="10" selected>10枚</option>
+                <option value="15">15枚</option>
+                <option value="20">20枚</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="theme">デザインテーマ</label>
+              <select id="theme" name="theme">
+                <option value="modern" selected>モダン</option>
+                <option value="corporate">コーポレート</option>
+                <option value="creative">クリエイティブ</option>
+                <option value="minimal">ミニマル</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="advanced-options-container">
+            <button type="button" id="toggle-advanced" class="toggle-btn">
+              <i class="fas fa-chevron-down"></i> 詳細オプション
+            </button>
+            
+            <div class="advanced-options">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="presentation-style">プレゼンテーションスタイル</label>
+                  <select id="presentation-style" name="presentation-style">
+                    <option value="professional" selected>プロフェッショナル</option>
+                    <option value="academic">アカデミック</option>
+                    <option value="creative">クリエイティブ</option>
+                    <option value="casual">カジュアル</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="content-depth">内容の詳細度</label>
+                  <select id="content-depth" name="content-depth">
+                    <option value="concise">簡潔</option>
+                    <option value="balanced" selected>バランス</option>
+                    <option value="detailed">詳細</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="language-style">言語スタイル</label>
+                  <select id="language-style" name="language-style">
+                    <option value="formal">フォーマル</option>
+                    <option value="standard" selected>標準</option>
+                    <option value="casual">カジュアル</option>
+                    <option value="technical">技術的</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="slide-structure">スライド構成</label>
+                  <select id="slide-structure" name="slide-structure">
+                    <option value="auto" selected>自動</option>
+                    <option value="text-heavy">テキスト重視</option>
+                    <option value="visual-heavy">ビジュアル重視</option>
+                    <option value="balanced">バランス型</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="tag-input">キーワード/タグ</label>
+                <div class="tag-input-container">
+                  <input type="text" id="tag-input" placeholder="タグを入力して Enter または追加ボタンをクリック">
+                  <button type="button" id="add-tag" class="btn-secondary">
+                    <i class="fas fa-plus"></i> 追加
+                  </button>
+                </div>
+                <div id="tags-container" class="tags-container"></div>
+                <input type="hidden" id="tags" name="tags" value="[]">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="generate-btn" class="btn-primary">
+              <i class="fas fa-magic"></i> 資料を生成
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- プレゼンテーション表示 -->
+      <div class="presentation-container">
+        <div class="presentation-header">
+          <div class="slide-controls">
+            <button id="prev-slide" class="control-btn">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <span class="slide-number">1 / 10</span>
+            <button id="next-slide" class="control-btn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="presentation-actions">
+            <button id="back-btn" class="btn-secondary">
+              <i class="fas fa-arrow-left"></i> 戻る
+            </button>
+            <button id="fullscreen-btn" class="btn-secondary">
+              <i class="fas fa-expand"></i> フルスクリーン
+            </button>
+          </div>
+        </div>
+        <div class="slides-container"></div>
+      </div>
+
+      <!-- ローディング表示 -->
+      <div class="loading-container">
+        <div class="loading-content">
+          <div class="loading-spinner"></div>
+          <div class="loading-step">準備中...</div>
+          <div class="loading-progress">
+            <div class="loading-progress-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- エラーページ -->
+      <div id="error-page" class="error-page">
+        <div class="error-content">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h2>エラーが発生しました</h2>
+          <p id="error-message"></p>
+          <div id="error-details" class="error-details"></div>
+          <button id="retry-btn" class="btn-primary">
+            <i class="fas fa-redo"></i> 再試行
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p>&copy; 2025 プロンプトからPPT風資料生成</p>
+        <p>
+          <a href="#" target="_blank">使い方</a> |
+          <a href="#" target="_blank">プライバシーポリシー</a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- APIキー設定モーダル -->
+    <div id="api-key-modal" class="modal">
+      <div class="modal-content card">
+        <div class="modal-header">
+          <h2>APIキー設定</h2>
+          <button class="close-btn">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="api-key-tabs">
+            <button class="api-key-tab active" data-provider="openai">
+              <i class="fas fa-robot"></i> OpenAI
+            </button>
+            <button class="api-key-tab" data-provider="gemini">
+              <i class="fas fa-atom"></i> Gemini
+            </button>
+          </div>
+
+          <div id="openai-api-key-content" class="api-key-content">
+            <p>OpenAI APIキーを入力して、GPT-4によるプレゼンテーション生成機能を有効にします。</p>
+            <div class="form-group">
+              <label for="openai-api-key">APIキー:</label>
+              <input type="password" id="openai-api-key" placeholder="sk-..." autocomplete="off">
+              <div id="openai-api-key-status" class="api-key-status"></div>
+            </div>
+          </div>
+
+          <div id="gemini-api-key-content" class="api-key-content" style="display: none;">
+            <p>Gemini APIキーを入力して、Gemini 2.5 Proによるプレゼンテーション生成機能を有効にします。</p>
+            <div class="form-group">
+              <label for="gemini-api-key">APIキー:</label>
+              <input type="password" id="gemini-api-key" placeholder="AIzaSy..." autocomplete="off">
+              <div id="gemini-api-key-status" class="api-key-status"></div>
+            </div>
+          </div>
+
+          <div class="api-key-info">
+            <p class="note">注意: APIキーはブラウザのローカルストレージに保存され、サーバーには送信されません。APIキーを使用すると、各サービスの利用料金が発生する場合があります。</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="cancel-api-key" class="btn-secondary">キャンセル</button>
+          <button id="save-api-key" class="btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 通知コンテナ -->
+    <div class="notification-container"></div>
+
+    <!-- オフラインインジケーター -->
+    <div class="offline-indicator">
+      <i class="fas fa-wifi-slash"></i> オフライン
+    </div>
+
+    <!-- APIキー設定ボタン -->
+    <button id="api-key-btn" class="floating-btn" aria-label="APIキー設定">
+      <i class="fas fa-key"></i>
+    </button>
+  </div>
+
+  <!-- スクリプト -->
+  <script src="js/api-client.js"></script>
+  <script src="js/interactions.js"></script>
+</body>
+</html>

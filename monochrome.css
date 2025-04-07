@@ -1,0 +1,211 @@
+/* モノクロームテーマ - 白黒2色のみのスタイル */
+.theme-monochrome {
+  --primary-color: #000000;
+  --primary-dark: #333333;
+  --secondary-color: #666666;
+  --success-color: #000000;
+  --danger-color: #000000;
+  --warning-color: #000000;
+  --info-color: #000000;
+  --light-color: #f8f9fa;
+  --dark-color: #000000;
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --border-color: #000000;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+/* モノクロームテーマのスライド装飾 */
+.theme-monochrome .slide {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+}
+
+/* タイトルスライド */
+.theme-monochrome .title-slide h1 {
+  color: #000000;
+  font-size: 52px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-bottom: 4px solid #000000;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+.theme-monochrome .title-slide h2 {
+  color: #000000;
+  font-size: 30px;
+  font-style: italic;
+}
+
+/* コンテンツスライド */
+.theme-monochrome .content-slide h2 {
+  color: #000000;
+  font-size: 40px;
+  border-left: 8px solid #000000;
+  padding-left: 15px;
+  margin-bottom: 30px;
+}
+
+.theme-monochrome .slide-content {
+  color: #000000;
+  font-size: 26px;
+  line-height: 1.6;
+}
+
+/* 箇条書きスライド */
+.theme-monochrome .bullets-slide h2 {
+  color: #000000;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  margin-bottom: 30px;
+}
+
+.theme-monochrome .bullets-slide ul {
+  list-style-type: square;
+}
+
+.theme-monochrome .bullets-slide li {
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.theme-monochrome .bullets-slide li::before {
+  content: "";
+  position: absolute;
+  left: -24px;
+  top: 12px;
+  width: 8px;
+  height: 8px;
+  background-color: #000000;
+}
+
+/* 2カラムスライド */
+.theme-monochrome .two-column-slide {
+  display: flex;
+  gap: 40px;
+}
+
+.theme-monochrome .column {
+  flex: 1;
+  border-top: 2px solid #000000;
+  padding-top: 20px;
+}
+
+/* 引用スライド */
+.theme-monochrome .quote-slide blockquote {
+  font-size: 32px;
+  font-style: italic;
+  border-left: 5px solid #000000;
+  padding-left: 20px;
+  margin: 30px 0;
+}
+
+.theme-monochrome .quote-slide .quote-author {
+  font-size: 24px;
+  text-align: right;
+  font-weight: bold;
+}
+
+/* 最終スライド */
+.theme-monochrome .final-slide h2 {
+  font-size: 48px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.theme-monochrome .final-slide .contact-info {
+  font-size: 24px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* スライドコントロール */
+.theme-monochrome .slide-controls button {
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.theme-monochrome .slide-controls button:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* スライド番号 */
+.theme-monochrome .slide-number {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+}
+
+/* 装飾要素 */
+.theme-monochrome .slide::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-top: 3px solid #000000;
+  border-right: 3px solid #000000;
+}
+
+.theme-monochrome .slide::after {
+  content: "";
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 40px;
+  height: 40px;
+  border-bottom: 3px solid #000000;
+  border-left: 3px solid #000000;
+}
+
+/* テーブル */
+.theme-monochrome table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.theme-monochrome th {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 12px;
+  text-align: left;
+}
+
+.theme-monochrome td {
+  border: 1px solid #000000;
+  padding: 12px;
+}
+
+.theme-monochrome tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+/* 画像スタイル */
+.theme-monochrome .slide-image {
+  border: 2px solid #000000;
+  max-width: 100%;
+  height: auto;
+  filter: grayscale(100%);
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.theme-monochrome .slide {
+  animation: fadeIn 0.5s ease-in-out;
+}

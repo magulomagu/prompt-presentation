@@ -1,0 +1,248 @@
+/* モノクロームテーマの追加装飾要素 */
+
+/* 幾何学模様の背景 */
+.theme-monochrome .slide {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 角の装飾 */
+.theme-monochrome .slide::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 50px;
+  height: 50px;
+  border-top: 4px solid #000000;
+  border-right: 4px solid #000000;
+}
+
+.theme-monochrome .slide::after {
+  content: "";
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  width: 50px;
+  height: 50px;
+  border-bottom: 4px solid #000000;
+  border-left: 4px solid #000000;
+}
+
+/* タイトルスライドの特別装飾 */
+.theme-monochrome .title-slide {
+  position: relative;
+}
+
+.theme-monochrome .title-slide::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, #000, #000 10px, transparent 10px, transparent 20px);
+}
+
+.theme-monochrome .title-slide::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, #000, #000 10px, transparent 10px, transparent 20px);
+}
+
+/* タイトルスライドのタイトル装飾 */
+.theme-monochrome .title-slide h1 {
+  position: relative;
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.theme-monochrome .title-slide h1::before,
+.theme-monochrome .title-slide h1::after {
+  content: "●";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+}
+
+.theme-monochrome .title-slide h1::before {
+  left: -10px;
+}
+
+.theme-monochrome .title-slide h1::after {
+  right: -10px;
+}
+
+/* コンテンツスライドの装飾 */
+.theme-monochrome .content-slide h2 {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-monochrome .content-slide h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
+
+/* 箇条書きスライドの装飾 */
+.theme-monochrome .bullets-slide ul {
+  position: relative;
+}
+
+.theme-monochrome .bullets-slide ul::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: repeating-linear-gradient(0deg, #000, #000 5px, transparent 5px, transparent 10px);
+}
+
+.theme-monochrome .bullets-slide li {
+  position: relative;
+  padding-left: 10px;
+}
+
+.theme-monochrome .bullets-slide li::marker {
+  content: "■ ";
+}
+
+/* 引用スライドの装飾 */
+.theme-monochrome .quote-slide blockquote {
+  position: relative;
+  padding: 30px 40px;
+}
+
+.theme-monochrome .quote-slide blockquote::before,
+.theme-monochrome .quote-slide blockquote::after {
+  position: absolute;
+  font-size: 60px;
+  opacity: 0.2;
+  font-family: Georgia, serif;
+}
+
+.theme-monochrome .quote-slide blockquote::before {
+  content: """;
+  left: 0;
+  top: -10px;
+}
+
+.theme-monochrome .quote-slide blockquote::after {
+  content: """;
+  right: 0;
+  bottom: -30px;
+}
+
+/* 最終スライドの装飾 */
+.theme-monochrome .final-slide {
+  position: relative;
+}
+
+.theme-monochrome .final-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background-color: #000;
+}
+
+.theme-monochrome .final-slide::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 3px;
+  background-color: #000;
+}
+
+/* スライド番号の装飾 */
+.theme-monochrome .slide-number {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border: 1px solid #000;
+  border-radius: 20px;
+}
+
+/* 画像の装飾 */
+.theme-monochrome img {
+  border: 2px solid #000;
+  filter: grayscale(100%) contrast(120%);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* テーブルの装飾 */
+.theme-monochrome table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+  border: 2px solid #000;
+}
+
+.theme-monochrome th {
+  background-color: #000;
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.theme-monochrome td {
+  padding: 10px;
+  border: 1px solid #000;
+}
+
+.theme-monochrome tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+/* 区切り線の装飾 */
+.theme-monochrome hr {
+  border: none;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, #000, #000 10px, transparent 10px, transparent 20px);
+  margin: 20px 0;
+}
+
+/* アニメーション効果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-monochrome .slide h1,
+.theme-monochrome .slide h2 {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.theme-monochrome .slide-content,
+.theme-monochrome .bullets-slide ul {
+  animation: fadeInUp 0.8s ease-out;
+}

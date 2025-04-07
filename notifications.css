@@ -1,0 +1,236 @@
+/* 通知スタイル */
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: var(--z-index-tooltip);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 350px;
+  width: calc(100% - 40px);
+}
+
+.notification {
+  background-color: var(--white);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(120%);
+  transition: transform 0.3s ease-out;
+  border-left: 4px solid var(--info-color);
+}
+
+.notification.show {
+  transform: translateX(0);
+}
+
+.notification.hide {
+  transform: translateX(120%);
+}
+
+.notification i {
+  font-size: 1.2rem;
+}
+
+.notification span {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: var(--gray-600);
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.notification-close:hover {
+  color: var(--gray-800);
+}
+
+/* 通知タイプ */
+.notification.success {
+  border-left-color: var(--success-color);
+}
+
+.notification.success i {
+  color: var(--success-color);
+}
+
+.notification.error {
+  border-left-color: var(--danger-color);
+}
+
+.notification.error i {
+  color: var(--danger-color);
+}
+
+.notification.warning {
+  border-left-color: var(--warning-color);
+}
+
+.notification.warning i {
+  color: var(--warning-color);
+}
+
+.notification.info {
+  border-left-color: var(--info-color);
+}
+
+.notification.info i {
+  color: var(--info-color);
+}
+
+/* アクセシビリティ強化 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* フォーカス可視性の強化 */
+:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* スクリーンリーダー用ライブリージョン */
+[aria-live="polite"],
+[aria-live="assertive"] {
+  position: relative;
+}
+
+/* キーボードフォーカスインジケーター */
+.keyboard-focus-indicator {
+  position: absolute;
+  border: 2px solid var(--primary-color);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.2s ease;
+  display: none;
+}
+
+/* スキップリンク */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* サーバーステータス通知 */
+.server-status {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background-color: var(--warning-color);
+  color: var(--dark-color);
+  text-align: center;
+  padding: 8px;
+  font-size: 0.9rem;
+  z-index: var(--z-index-sticky);
+}
+
+/* ツールチップ */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: var(--dark-color);
+  color: var(--white);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: var(--z-index-tooltip);
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.8rem;
+}
+
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--dark-color) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* フォーカス時にもツールチップを表示 */
+.tooltip:focus-within .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* 高コントラストモード対応 */
+@media (forced-colors: active) {
+  .notification {
+    border: 2px solid currentColor;
+  }
+  
+  .btn-primary, .btn-secondary, .floating-btn {
+    border: 2px solid currentColor;
+  }
+  
+  .model-tab.active, .api-key-tab.active {
+    border: 2px solid currentColor;
+  }
+}
+
+/* 簡易アニメーション無効化 */
+@media (prefers-reduced-motion: reduce) {
+  .notification.show,
+  .notification.hide {
+    transition: none;
+  }
+  
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .floating-btn:hover {
+    transform: none;
+  }
+}

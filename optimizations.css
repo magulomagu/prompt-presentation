@@ -1,0 +1,243 @@
+/* 最適化とパフォーマンス改善 */
+.loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.loading-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+}
+
+.loading-spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #4285f4;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-progress {
+    height: 6px;
+    background-color: #f3f3f3;
+    border-radius: 3px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.loading-progress-bar {
+    height: 100%;
+    background-color: #4285f4;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* モデル選択オプション */
+.model-options {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.model-option {
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.model-option:hover {
+    background-color: #e9ecef;
+}
+
+.model-option.selected {
+    background-color: #4285f4;
+    color: white;
+}
+
+.model-option i {
+    font-size: 1rem;
+}
+
+/* オフライン検出 */
+.offline-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    z-index: 1000;
+}
+
+.offline-indicator.show {
+    display: flex;
+}
+
+.offline-indicator i {
+    font-size: 1.1rem;
+}
+
+/* アクセシビリティの向上 */
+button, select, input, textarea {
+    font-family: inherit;
+}
+
+button:focus, select:focus, input:focus, textarea:focus {
+    outline: 2px solid #4285f4;
+    outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible), 
+select:focus:not(:focus-visible), 
+input:focus:not(:focus-visible), 
+textarea:focus:not(:focus-visible) {
+    outline: none;
+}
+
+button:focus-visible, 
+select:focus-visible, 
+input:focus-visible, 
+textarea:focus-visible {
+    outline: 2px solid #4285f4;
+    outline-offset: 2px;
+}
+
+/* ダークモードサポート */
+@media (prefers-color-scheme: dark) {
+    .loading-content {
+        background-color: #333;
+        color: #f8f9fa;
+    }
+    
+    .loading-spinner {
+        border-color: #555;
+    }
+    
+    .loading-progress {
+        background-color: #555;
+    }
+    
+    .model-option {
+        background-color: #444;
+        color: #f8f9fa;
+    }
+    
+    .model-option:hover {
+        background-color: #555;
+    }
+    
+    .model-option.selected {
+        background-color: #4285f4;
+    }
+}
+
+/* レスポンシブデザインの改善 */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .form-group {
+        width: 100%;
+    }
+    
+    .two-column {
+        flex-direction: column;
+    }
+    
+    .left-column, .right-column {
+        width: 100%;
+    }
+    
+    .model-options {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+}
+
+/* タッチデバイスのサポート */
+@media (hover: none) {
+    .control-btn, .model-option, .advanced-options-toggle {
+        padding: 12px;
+    }
+    
+    .slide-content {
+        padding: 30px;
+    }
+}
+
+/* 印刷スタイル */
+@media print {
+    body {
+        background-color: white;
+    }
+    
+    .input-section, 
+    .presentation-controls, 
+    .feedback-toggle, 
+    .api-key-toggle,
+    .slide-number {
+        display: none !important;
+    }
+    
+    .presentation-container {
+        display: block !important;
+        height: auto;
+    }
+    
+    .slides-container {
+        transform: none !important;
+        display: block;
+    }
+    
+    .slide {
+        page-break-after: always;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 90vh;
+        box-shadow: none;
+        margin: 0;
+        transform: none !important;
+    }
+}

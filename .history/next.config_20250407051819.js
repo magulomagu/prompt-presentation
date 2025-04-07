@@ -25,10 +25,7 @@ module.exports = {
   
   // 静的ファイルの最適化
   optimizeFonts: true,
-  images: {
-    domains: [],
-    formats: ['image/avif', 'image/webp'],
-  },
+  optimizeImages: true,
   
   // サーバーサイドレンダリングの設定
   reactStrictMode: true,
